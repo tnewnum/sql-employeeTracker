@@ -1,4 +1,5 @@
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
+const { default: Choice } = require('inquirer/lib/objects/choice');
 const mysql = require('mysql2')
 
 const connection = mysql.createConnection({
@@ -79,4 +80,61 @@ const updateEmployee = [
     }
 ];
 
+function firstChoice({options}) {
+
+switch (options) {
+    case 'View All Departments':
+        viewDepts()               
+        break;
+    
+    case 'View All Roles':
+        viewRoles()
+    
+        break;
+    
+    case 'View All Employees':
+         viewEmployees()
+         break;
+    
+    case 'Add A Department':
+        addDept()
+        break;
+    
+    case 'Add A Role':
+        addRole()
+        break;
+        
+    case 'Add An Employee':
+        addEmployee()
+        break;
+        
+    case 'Update An Employee Role':
+        updateRole()
+        break;
+
+    default:
+        console.log('THIS IS NOT THE DATABASE YOU ARE LOOKING FOR! 🤖 ')
+        break;
+}
+
+};
+viewDepts()
+viewRoles()
+viewEmployees()
+addDept()
+addRole()
+addEmployee()
+updateRole()
+
+
+
+function init() {
+    inquirer
+    .prompt(firstQuestion)
+        .then((answer) => {
+            firstChoice(answer)
+    });
+}
+
+init();
 
