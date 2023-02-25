@@ -22,7 +22,7 @@ CREATE TABLE role (
      REFERENCES department(id)
       ON DELETE SET NULL,
     PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE employee (
     id INT AUTO_INCREMENT, 
@@ -37,4 +37,4 @@ CREATE TABLE employee (
       REFERENCES employee(id)
        ON DELETE SET NULL,
     PRIMARY KEY (id)
-)
+);
