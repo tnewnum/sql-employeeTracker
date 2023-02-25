@@ -13,7 +13,7 @@ const firstQuestion = [
     {
         type: 'list',
         name: 'options',
-        message: 'What would you like to do first?',
+        message: 'What would you like to do?',
         choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Update An Employee Role', 'Exit']
     }
 ];
@@ -118,13 +118,51 @@ switch (options) {
 }
 
 };
-viewDepts()
-viewRoles()
-viewEmployees()
-addDept()
-addRole()
-addEmployee()
-updateRole()
+
+function viewDepts() {
+    connection.query (
+        `SELECT department.name AS 'Department',
+               department.id AS 'Department ID'
+        FROM department`,
+        (err, results) => { 
+            err
+            ? console.log(err)
+            : console.table(results)
+            init();
+        }
+        
+        );
+       
+}
+
+
+
+function viewRoles()  {
+    connection.query (
+        `SELECT role.title AS 'Role Title',
+                role.id AS 'Role ID',
+                role.salary AS 'Salary',
+                role.department_id AS 'Department ID'
+        FROM role`,
+        (err, results) => { 
+            err
+            ? console.log(err)
+            : console.table(results)
+            init();
+        }
+
+    );
+}
+
+// function viewEmployees()
+
+// addDept()
+
+// addRole()
+
+// addEmployee()
+
+// updateRole()
 
 
 
