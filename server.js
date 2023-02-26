@@ -121,9 +121,11 @@ switch (options) {
 
 function viewDepts() {
     connection.query (
-        `SELECT department.name AS 'Department',
-               department.id AS 'Department ID'
-        FROM department`,
+        `SELECT
+            department.name AS 'Department',
+            department.id AS 'Department ID'
+        FROM
+            department`,
         (err, results) => { 
             err
             ? console.log(err)
@@ -139,11 +141,13 @@ function viewDepts() {
 
 function viewRoles()  {
     connection.query (
-        `SELECT role.title AS 'Role Title',
-                role.id AS 'Role ID',
-                role.salary AS 'Salary',
-                role.department_id AS 'Department ID'
-        FROM role`,
+        `SELECT
+            role.title AS 'Role Title',
+            role.id AS 'Role ID',
+            role.salary AS 'Salary',
+            role.department_id AS 'Department ID'
+        FROM
+            role`,
         (err, results) => { 
             err
             ? console.log(err)
@@ -154,7 +158,41 @@ function viewRoles()  {
     );
 }
 
-// function viewEmployees()
+// managers that the employees report to
+
+//    LEFT JOIN role ON employee.role_id = role.id
+//LEFT JOIN department ON role.department_id = department.id
+//LEFT JOIN employee manager on manager.id = employee.manager_id`,
+
+function viewEmployees() {
+    connection.query (
+        `SELECT 
+            employee.id AS 'Employee ID',
+            employee.first_name AS 'First Name',
+            employee.last_name AS 'Last Name',
+            role.title AS 'Title',
+            role.salary AS "Salary",
+            role.department_id AS 'Department ID',
+            department.name AS 'Department',
+            employee.manager_id AS 'Manager ID',
+            manager.first_name AS 'Manager First Name',
+            manager.last_name AS 'Manager Last Name'
+        FROM
+            employee
+                LEFT JOIN role ON employee.role_id = role.id
+                LEFT JOIN department ON role.department_id = department.id 
+                LEFT JOIN employee manager ON manager.id = employee.manager_id`,
+                
+
+        (err, results) => { 
+            err
+            ? console.log(err)
+            : console.table(results)
+            init();
+        }
+
+    );
+}
 
 // addDept()
 
