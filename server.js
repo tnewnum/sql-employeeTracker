@@ -1,7 +1,9 @@
+//Things that are required for this project to work 
 const inquirer = require('inquirer');
 const { default: Choice } = require('inquirer/lib/objects/choice');
 const mysql = require('mysql2')
 
+//setting up mysql connection to run when npm start used
 const connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
@@ -9,6 +11,7 @@ const connection = mysql.createConnection({
     database: 'employee_db'
 });
 
+//main question asked
 const firstQuestion = [
     {
         type: 'list',
@@ -18,6 +21,7 @@ const firstQuestion = [
     }
 ];
 
+//question asked if you want to add a new DEPARTMENT 
 const addDepartment = [
     {
         type: 'input',
@@ -26,6 +30,8 @@ const addDepartment = [
     }
 ];
 
+
+//questions asked if you want to add a new ROLE 
 const newRole = [
     {
         type: 'input',
@@ -44,6 +50,7 @@ const newRole = [
     }   
 ];
 
+//Questions asked if you want to add a new EMPLOYEE
 const newEmployee = [
     {
         type: 'input',
@@ -67,6 +74,7 @@ const newEmployee = [
     }
 ];
 
+//Questions asked if you want to UPDATE the ROLE of an EMPLOYEE
 const updateEmployee = [
     {
         type: 'input',
@@ -80,45 +88,46 @@ const updateEmployee = [
     }
 ];
 
+//function that is a switch statment that triggers another funtion depending on the selction the user chooses
 function firstChoice({options}) {
 
-switch (options) {
-    case 'View All Departments':
-        viewDepts()               
-        break;
-    
-    case 'View All Roles':
-        viewRoles()
-    
-        break;
-    
-    case 'View All Employees':
-         viewEmployees()
-         break;
-    
-    case 'Add A Department':
-        addDept()
-        break;
-    
-    case 'Add A Role':
-        addRole()
-        break;
+    switch (options) {
+        case 'View All Departments':
+            viewDepts()               
+            break;
         
-    case 'Add An Employee':
-        addEmployee()
-        break;
+        case 'View All Roles':
+            viewRoles()        
+            break;
         
-    case 'Update An Employee Role':
-        updateRole()
-        break;
+        case 'View All Employees':
+            viewEmployees()
+            break;
+        
+        case 'Add A Department':
+            addDept()
+            break;
+        
+        case 'Add A Role':
+            addRole()
+            break;
+            
+        case 'Add An Employee':
+            addEmployee()
+            break;
+            
+        case 'Update An Employee Role':
+            updateRole()
+            break;
 
-    default:
-        console.log('THIS IS NOT THE DATABASE YOU ARE LOOKING FOR! 🤖 ')
-        break;
-}
+        default:
+            console.log('THIS IS NOT THE DATABASE YOU ARE LOOKING FOR! 🤖 ')
+            break;
+    }
 
 };
 
+//Function to view all DEPARTMENTS that are in the Database
 function viewDepts() {
     connection.query (
         `SELECT
@@ -137,8 +146,7 @@ function viewDepts() {
        
 }
 
-
-
+//Function to view all ROLES that are in the Database
 function viewRoles()  {
     connection.query (
         `SELECT
@@ -158,6 +166,7 @@ function viewRoles()  {
     );
 }
 
+//Function to view all EMPLOYEES that are in the Database 
 function viewEmployees() {
     connection.query (
         `SELECT 
@@ -187,6 +196,7 @@ function viewEmployees() {
     );
 }
 
+//Funtion to add a DEPARTMENT to the Database
 function addDept() {
     inquirer
     .prompt(addDepartment)
@@ -203,6 +213,7 @@ function addDept() {
     })
 };
 
+//Funtion to add a ROLE
 function addRole() {
     inquirer
     .prompt(newRole)
@@ -219,7 +230,7 @@ function addRole() {
     })
 };
 
-
+//Funtion to add an EMPLOYEE
 function addEmployee() {
     inquirer
     .prompt(newEmployee)
@@ -236,6 +247,7 @@ function addEmployee() {
     })
 };
 
+//Funtion to Update a ROLE
 function updateRole() {
     inquirer
     .prompt(updateEmployee)
@@ -252,6 +264,8 @@ function updateRole() {
     })
 };
 
+
+//Overall Function that launches the program
 function init() {
     inquirer
     .prompt(firstQuestion)
