@@ -26,7 +26,7 @@ const addDepartment = [
     }
 ];
 
-const addRole = [
+const newRole = [
     {
         type: 'input',
         name: 'roleTitle',
@@ -188,9 +188,40 @@ function viewEmployees() {
     );
 }
 
-// addDept()
+function addDept() {
+    inquirer
+    .prompt(addDepartment)
+    .then((answers) =>{
+        connection.query(
+            `INSERT INTO department (name)
+            VALUES(?)`, [answers.newDept],
+            (err, results) => { 
+                err
+                ? console.log(err)
+                : viewDepts()
+                init();
+            }
+        );
+    })
+};
 
-// addRole()
+function addRole() {
+    inquirer
+    .prompt(newRole)
+    .then((answers) =>{
+        connection.query(
+            `INSERT INTO role (title, salary, department_id)
+            VALUES(?, ?, ?)`, [answers.roleTitle, answers.roleSalary, answers.roleDept],
+            (err, results) => { 
+                err
+                ? console.log(err)
+                : viewRoles()
+                init();
+            }
+        );
+    })
+};
+
 
 // addEmployee()
 
