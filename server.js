@@ -169,8 +169,7 @@ function viewEmployees() {
             role.department_id AS 'Department ID',
             department.name AS 'Department',
             employee.manager_id AS 'Manager ID',
-            manager.first_name AS 'Manager First Name',
-            manager.last_name AS 'Manager Last Name'
+            CONCAT(manager.first_name, ' ', manager.last_name) AS 'Manager'
         FROM
             employee
                 JOIN role ON employee.role_id = role.id
@@ -198,8 +197,7 @@ function addDept() {
             (err, results) => { 
                 err
                 ? console.log(err)
-                : viewDepts()
-                init();
+                : viewDepts();
             }
         );
     })
@@ -215,8 +213,7 @@ function addRole() {
             (err, results) => { 
                 err
                 ? console.log(err)
-                : viewRoles()
-                init();
+                : viewRoles();
             }
         );
     })
@@ -233,8 +230,7 @@ function addEmployee() {
             (err, results) => { 
                 err
                 ? console.log(err)
-                : viewEmployees()
-                init();
+                : viewEmployees();
             }
         );
     })
@@ -250,8 +246,7 @@ function updateRole() {
             (err, results) => { 
                 err
                 ? console.log(err)
-                : viewEmployees()
-                init();
+                : viewEmployees();
             }
         );
     })
