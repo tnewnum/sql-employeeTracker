@@ -44,7 +44,7 @@ const newRole = [
     }   
 ];
 
-const addEmployee = [
+const newEmployee = [
     {
         type: 'input',
         name: 'firstName',
@@ -57,7 +57,7 @@ const addEmployee = [
     },
     {
         type: 'input',
-        name: 'roleID',
+        name: 'roleId',
         message: 'What is the Role ID for this Employee?'
     },
     {
@@ -223,8 +223,22 @@ function addRole() {
 };
 
 
-// addEmployee()
-
+function addEmployee() {
+    inquirer
+    .prompt(newEmployee)
+    .then((answers) =>{
+        connection.query(
+            `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+            VALUES(?, ?, ?, ?)`, [answers.firstName, answers.lastName, answers.roleId, answers.managerId],
+            (err, results) => { 
+                err
+                ? console.log(err)
+                : viewEmployees()
+                init();
+            }
+        );
+    })
+};
 // updateRole()
 
 
