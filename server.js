@@ -70,12 +70,12 @@ const newEmployee = [
 const updateEmployee = [
     {
         type: 'input',
-        name: 'employeeId',
+        name: 'currentId',
         message: 'What is the ID for the Employee you would like to update?'
     },
     {
         type: 'input',
-        name: 'newRole',
+        name: 'newId',
         message: 'What is the ID for the new Role for this employee?'
     }
 ];
@@ -239,9 +239,23 @@ function addEmployee() {
         );
     })
 };
-// updateRole()
 
-
+function updateRole() {
+    inquirer
+    .prompt(updateEmployee)
+    .then((answers) =>{
+        connection.query(
+            `UPDATE employee SET role_id = ? WHERE id = ?`,
+                [answers.newId, answers.currentId],
+            (err, results) => { 
+                err
+                ? console.log(err)
+                : viewEmployees()
+                init();
+            }
+        );
+    })
+};
 
 function init() {
     inquirer
