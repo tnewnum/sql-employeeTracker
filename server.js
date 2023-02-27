@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const { default: Choice } = require('inquirer/lib/objects/choice');
 const mysql = require('mysql2')
 
+
 //setting up mysql connection to run when npm start used
 const connection = mysql.createConnection({
     host: '127.0.0.1',
